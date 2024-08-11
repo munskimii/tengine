@@ -1,0 +1,16 @@
+<%@ import java.util.*; %>A sample generated document from base engine reference implementation. 
+
+Example text below.  Note the scriptlet vs scriptlet assign pattern.
+The person with first name <%= data.get("fname") %> and last name <%= data.get("lname") %>
+    has email address <% out.write(data.get("email")); %> 
+
+Paramater example for prop1, the value is <%= ctx.getMetaParameters().getParameter("prop1") %>
+Paramater example for prop2, the value is <%= ctx.getMetaParameters().getParameter("prop2") %>
+Paramater example for prop3, the value is <%= ctx.getMetaParameters().getParameter("prop3") %>
+
+The pre-defined scriptlet variables available outside whatever is defined in MetaContext are:
+  name: <%= name %>, this is the name of the template
+  out:  <% out.write("Writing out in a scriptlet section into doc using \"out\" scriptlet variable"); %>
+  ctx:  From context, I can find all available scriptlet vars.  Scriptlet var count is <%= "" + ctx.getMetaContext().size(); %>
+  
+The End
