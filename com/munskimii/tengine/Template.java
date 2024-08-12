@@ -159,14 +159,13 @@ public class Template {
 
 				if (ch == '<') {
 					int ch2 = rIn.read();
-					if (ch2 != -1) str += (char) ch2;
+
+					// if a second <, then that is escape, drop one of the '<' - the next check will just get skipped now
+					if ((ch2 != -1) && (((char)ch2) != '<')) str += (char) ch2;
 					
 					if (((char)ch2) == '%') {
 						int ch3 = rIn.read();
 
-						if (((char)ch3) != '%') { // if a second %, then that is escape, 
-																		  // just take first two chars as text, skip this section.
-																			// If not escape, we assume next char is just white space
 							if (((char)ch3) == '=') {
 								bScriptlet = false;
 								bScriptletAssign = true;
@@ -177,7 +176,7 @@ public class Template {
 								bScriptletAssign = false;
 								bScriptletDeclare = true;
 							}
-							else {
+							else { // ch3 char should be white space if not "=" or "@"
 								bScriptlet = true;
 								bScriptletAssign = false;
 								bScriptletDeclare = false;
@@ -194,7 +193,6 @@ public class Template {
 								sb2.append("    ____s = "); // scriptlet assign code will assign this string
 							}
 							continue;
-						}
 					}
 				}
 
